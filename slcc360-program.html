@@ -1,0 +1,1230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SLCC 360 Conference Program</title>
+    <link href="//www.slcc.edu/_redesign/_files/images/favicon.png" rel="icon">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --slcc-primary: #109AD6;
+            --slcc-gold: #FED301;
+            --slcc-dark-blue: #0F4B90;
+            --slcc-brown: #843F23;
+            --slcc-secondary-blue: #0076BC;
+            --slcc-light-blue: #BCDDF4;
+            --slcc-cream: #FFEFBD;
+        }
+
+        * {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        .slcc-header {
+            background: linear-gradient(135deg, var(--slcc-primary) 0%, var(--slcc-secondary-blue) 100%);
+            color: white;
+        }
+
+        .slcc-accent {
+            color: var(--slcc-primary);
+        }
+
+        .slcc-gold-accent {
+            color: var(--slcc-gold);
+        }
+
+        .btn-primary {
+            background-color: var(--slcc-primary);
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--slcc-dark-blue);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(16, 154, 214, 0.4);
+        }
+
+        .btn-secondary {
+            background-color: var(--slcc-gold);
+            color: var(--slcc-dark-blue);
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background-color: #ECAA20;
+            transform: translateY(-2px);
+        }
+
+        .session-card {
+            background: white;
+            border-left: 4px solid var(--slcc-primary);
+            transition: all 0.3s ease;
+            border-radius: 0.5rem;
+        }
+
+        .session-card:hover {
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            transform: translateY(-4px);
+        }
+
+        .favorite-btn {
+            transition: all 0.2s ease;
+        }
+
+        .favorite-btn.active {
+            color: var(--slcc-gold);
+        }
+
+        .nav-active {
+            border-bottom: 3px solid var(--slcc-gold);
+            color: var(--slcc-primary) !important;
+        }
+
+        .location-badge {
+            background-color: #e8f4f8;
+            color: var(--slcc-primary);
+            border-radius: 20px;
+            padding: 0.25rem 0.75rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .time-badge {
+            background-color: #fff3e0;
+            color: var(--slcc-brown);
+            border-radius: 20px;
+            padding: 0.25rem 0.75rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .tag {
+            background-color: #f0f0f0;
+            color: var(--slcc-dark-blue);
+            border-radius: 4px;
+            padding: 0.25rem 0.5rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-right: 0.5rem;
+            margin-bottom: 0.25rem;
+            display: inline-block;
+        }
+
+        .presenter-item {
+            background-color: #f9f9f9;
+            border-left: 2px solid var(--slcc-gold);
+            padding: 0.75rem;
+            border-radius: 0.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .welcome-section {
+            background: linear-gradient(135deg, #f8f9fa 0%, white 100%);
+        }
+
+        .schedule-item {
+            background: white;
+            border-left: 4px solid var(--slcc-gold);
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border-radius: 0.5rem;
+        }
+
+        .schedule-item.plenary {
+            border-left-color: var(--slcc-primary);
+            background: linear-gradient(to right, rgba(16, 154, 214, 0.05), transparent);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 0.75rem;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .close-modal {
+            float: right;
+            font-size: 1.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            color: #999;
+        }
+
+        .close-modal:hover {
+            color: var(--slcc-primary);
+        }
+
+        .no-favorites {
+            text-align: center;
+            padding: 3rem 1rem;
+            color: #999;
+        }
+
+        .no-favorites i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--slcc-gold);
+        }
+
+        .isle-section {
+            background: linear-gradient(135deg, var(--slcc-light-blue) 0%, white 100%);
+        }
+
+        .nav-menu {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .scroll-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background-color: var(--slcc-primary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            box-shadow: 0 4px 12px rgba(16, 154, 214, 0.4);
+            transition: all 0.3s ease;
+            z-index: 999;
+        }
+
+        .scroll-to-top.show {
+            display: flex;
+        }
+
+        .scroll-to-top:hover {
+            background-color: var(--slcc-dark-blue);
+            transform: translateY(-3px);
+        }
+
+        @media (max-width: 768px) {
+            .modal-content {
+                width: 95%;
+                padding: 1.5rem;
+            }
+
+            .session-card {
+                margin-bottom: 1rem;
+            }
+
+            .nav-menu {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+        }
+
+        .break-words {
+            word-break: break-word;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+    <!-- Navigation Menu -->
+    <nav class="nav-menu">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-2">
+                    <img src="https://i.slcc.edu/institutionalmarketing/images/logo/SLCClogo-BrandColors2015.png" alt="SLCC Logo" class="h-12 w-auto">
+                    <span class="hidden sm:inline text-lg font-bold text-blue-600">SLCC 360</span>
+                </div>
+                
+                <!-- Mobile Menu Toggle -->
+                <button id="mobile-menu-toggle" class="md:hidden text-gray-700 hover:text-blue-600" onclick="toggleMobileMenu()">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+
+                <!-- Desktop Navigation -->
+                <div id="desktop-nav" class="hidden md:flex md:items-center md:space-x-1 lg:space-x-2 text-sm lg:text-base">
+                    <button onclick="showSection('welcome')" class="nav-item px-3 py-2 rounded-md font-medium text-gray-700 hover:text-blue-600 whitespace-nowrap">
+                        <i class="fas fa-home mr-1"></i><span class="hidden lg:inline">Welcome</span>
+                    </button>
+                    <button onclick="showSection('schedule')" class="nav-item px-3 py-2 rounded-md font-medium text-gray-700 hover:text-blue-600 whitespace-nowrap">
+                        <i class="fas fa-calendar mr-1"></i><span class="hidden lg:inline">Schedule</span>
+                    </button>
+                    <button onclick="showSection('sessions')" class="nav-item px-3 py-2 rounded-md font-medium text-gray-700 hover:text-blue-600 whitespace-nowrap">
+                        <i class="fas fa-chalkboard-user mr-1"></i><span class="hidden lg:inline">Sessions</span>
+                    </button>
+                    <button onclick="showSection('favorites')" class="nav-item px-3 py-2 rounded-md font-medium text-gray-700 hover:text-blue-600 whitespace-nowrap relative">
+                        <i class="fas fa-bookmark mr-1"></i><span class="hidden lg:inline">Favorites</span>
+                        <span id="favorite-count" class="absolute top-0 right-0 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center hidden font-bold">0</span>
+                    </button>
+                    <button onclick="showSection('lunch')" class="nav-item px-3 py-2 rounded-md font-medium text-gray-700 hover:text-blue-600 whitespace-nowrap">
+                        <i class="fas fa-utensils mr-1"></i><span class="hidden lg:inline">Lunch</span>
+                    </button>
+                    <button onclick="showSection('isle')" class="nav-item px-3 py-2 rounded-md font-medium text-gray-700 hover:text-blue-600 whitespace-nowrap">
+                        <i class="fas fa-star mr-1"></i><span class="hidden lg:inline">ISLE</span>
+                    </button>
+                    <button onclick="showSection('maps')" class="nav-item px-3 py-2 rounded-md font-medium text-gray-700 hover:text-blue-600 whitespace-nowrap">
+                        <i class="fas fa-map mr-1"></i><span class="hidden lg:inline">Maps</span>
+                    </button>
+                    <button onclick="showSection('info')" class="nav-item px-3 py-2 rounded-md font-medium text-gray-700 hover:text-blue-600 whitespace-nowrap">
+                        <i class="fas fa-info-circle mr-1"></i><span class="hidden lg:inline">Info</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Menu Dropdown -->
+            <div id="mobile-menu" class="hidden md:hidden pb-4 space-y-2">
+                <button onclick="showSection('welcome'); toggleMobileMenu();" class="nav-item w-full text-left px-4 py-2 rounded-md font-medium text-gray-700 hover:bg-gray-100">
+                    <i class="fas fa-home mr-2"></i>Welcome
+                </button>
+                <button onclick="showSection('schedule'); toggleMobileMenu();" class="nav-item w-full text-left px-4 py-2 rounded-md font-medium text-gray-700 hover:bg-gray-100">
+                    <i class="fas fa-calendar mr-2"></i>Schedule
+                </button>
+                <button onclick="showSection('sessions'); toggleMobileMenu();" class="nav-item w-full text-left px-4 py-2 rounded-md font-medium text-gray-700 hover:bg-gray-100">
+                    <i class="fas fa-chalkboard-user mr-2"></i>Sessions
+                </button>
+                <button onclick="showSection('favorites'); toggleMobileMenu();" class="nav-item w-full text-left px-4 py-2 rounded-md font-medium text-gray-700 hover:bg-gray-100 relative">
+                    <i class="fas fa-bookmark mr-2"></i>Favorites
+                    <span id="mobile-favorite-count" class="ml-2 bg-red-500 text-white text-xs rounded-full px-2 py-0.5 hidden font-bold">0</span>
+                </button>
+                <button onclick="showSection('lunch'); toggleMobileMenu();" class="nav-item w-full text-left px-4 py-2 rounded-md font-medium text-gray-700 hover:bg-gray-100">
+                    <i class="fas fa-utensils mr-2"></i>Lunch
+                </button>
+                <button onclick="showSection('isle'); toggleMobileMenu();" class="nav-item w-full text-left px-4 py-2 rounded-md font-medium text-gray-700 hover:bg-gray-100">
+                    <i class="fas fa-star mr-2"></i>ISLE
+                </button>
+                <button onclick="showSection('maps'); toggleMobileMenu();" class="nav-item w-full text-left px-4 py-2 rounded-md font-medium text-gray-700 hover:bg-gray-100">
+                    <i class="fas fa-map mr-2"></i>Maps
+                </button>
+                <button onclick="showSection('info'); toggleMobileMenu();" class="nav-item w-full text-left px-4 py-2 rounded-md font-medium text-gray-700 hover:bg-gray-100">
+                    <i class="fas fa-info-circle mr-2"></i>Info
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+        <!-- Welcome Section -->
+        <section id="welcome" class="section welcome-section rounded-lg p-8 mb-8">
+            <div class="text-center mb-8">
+                <h1 class="text-4xl sm:text-5xl font-bold text-gray-800 mb-2">
+                    <span class="slcc-accent">SLCC 360:</span> From Vision To Action
+                </h1>
+                <p class="text-gray-600 text-lg">February 14, 2026 | Redwood Campus</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4">A Letter from the President</h2>
+                    <div class="bg-white p-6 rounded-lg border-l-4 border-blue-500">
+                        <p class="text-gray-700 mb-4">
+                            Welcome to SLCC 360, an exciting day designed to bring our institution together around our shared vision: to create an Ideal Student Learning Experience where every student can succeed.
+                        </p>
+                        <p class="text-gray-700 mb-4">
+                            This conference brings together faculty, staff, and leaders from across all our campuses to collaborate on the strategic initiatives that define our college. Today, we'll explore how each of us—in our unique roles—contributes to student success and institutional excellence.
+                        </p>
+                        <p class="text-gray-700 mb-4">
+                            From vision to action, we're committed to turning aspirations into tangible outcomes. Through collaborative breakout sessions, engaging discussions, and meaningful connections, we'll sharpen our focus on what matters most: our students and our collective impact.
+                        </p>
+                        <p class="text-gray-700 font-semibold">
+                            Thank you for being here. Your participation matters.
+                        </p>
+                    </div>
+                </div>
+                <div class="flex items-center justify-center bg-white rounded-lg border-2 border-dashed border-gray-300 p-8 text-center">
+                    <div>
+                        <i class="fas fa-image text-5xl text-gray-300 mb-4"></i>
+                        <p class="text-gray-500 font-semibold">[PRESIDENT PHOTO PLACEHOLDER]</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Schedule Section -->
+        <section id="schedule" class="section hidden">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6">Conference Schedule</h2>
+            <div class="space-y-4">
+                <div class="schedule-item">
+                    <div class="flex items-start justify-between mb-3">
+                        <h3 class="text-lg font-bold text-gray-800">Pre-Plenary New Hire Welcome Session</h3>
+                        <span class="time-badge"><i class="fas fa-clock mr-1"></i>7:45 – 8:45 AM</span>
+                    </div>
+                    <p class="text-sm font-semibold text-blue-600 mb-2"><i class="fas fa-map-marker-alt mr-1"></i>Library Basement</p>
+                    <p class="font-bold text-gray-800 mb-2">Making Tracks: Your First Steps at SLCC360</p>
+                    <p class="text-gray-700">Start your SLCC360 adventure on the right paw! If you're in your first year and new to this event, join us in the Library Basement outside the Testing Center for a one-stop shop. Pick up your nametag, enjoy breakfast, and take part in a fun, welcoming session with tips to help you make tracks toward strategic planning.</p>
+                </div>
+
+                <div class="schedule-item">
+                    <div class="flex items-start justify-between mb-3">
+                        <h3 class="text-lg font-bold text-gray-800">Breakfast & Networking</h3>
+                        <span class="time-badge"><i class="fas fa-clock mr-1"></i>8:00 – 8:45 AM</span>
+                    </div>
+                    <p class="text-sm font-semibold text-blue-600"><i class="fas fa-map-marker-alt mr-1"></i>LAC Lobby, Main Court</p>
+                </div>
+
+                <div class="schedule-item plenary">
+                    <div class="flex items-start justify-between mb-3">
+                        <h3 class="text-lg font-bold text-gray-800">Plenary Session</h3>
+                        <span class="time-badge"><i class="fas fa-clock mr-1"></i>9:00 – 9:50 AM</span>
+                    </div>
+                    <p class="text-sm font-semibold text-blue-600 mb-3"><i class="fas fa-map-marker-alt mr-1"></i>LAC, Main Court</p>
+                    <div class="bg-blue-50 p-4 rounded border-l-4 border-blue-500">
+                        <p class="font-semibold text-gray-800 mb-2">Plenary Agenda:</p>
+                        <ul class="space-y-2 text-gray-700">
+                            <li><strong>Welcome:</strong> Brandi Mair, Chief of Staff</li>
+                            <li><strong>Opening Remarks:</strong> Greg Peterson, President</li>
+                            <li><strong>Ideal Student Learning Experience Update:</strong> Jamie Cooper, Provost</li>
+                            <li><strong>Framing the Day:</strong> Brandi Mair</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="schedule-item">
+                    <div class="flex items-start justify-between mb-3">
+                        <h3 class="text-lg font-bold text-gray-800">Breakout Session 1</h3>
+                        <span class="time-badge"><i class="fas fa-clock mr-1"></i>10:10 – 10:55 AM</span>
+                    </div>
+                    <p class="text-sm font-semibold text-blue-600 mb-2"><i class="fas fa-map-marker-alt mr-1"></i>Various buildings across campus</p>
+                    <p class="text-gray-700 italic">See Sessions tab for complete session details</p>
+                </div>
+
+                <div class="schedule-item">
+                    <div class="flex items-start justify-between mb-3">
+                        <h3 class="text-lg font-bold text-gray-800">Breakout Session 2</h3>
+                        <span class="time-badge"><i class="fas fa-clock mr-1"></i>11:15 AM – 12:00 PM</span>
+                    </div>
+                    <p class="text-sm font-semibold text-blue-600 mb-2"><i class="fas fa-map-marker-alt mr-1"></i>Various buildings across campus</p>
+                    <p class="text-gray-700 italic">Repeat of breakout sessions - See Sessions tab for details</p>
+                </div>
+
+                <div class="schedule-item">
+                    <div class="flex items-start justify-between mb-3">
+                        <h3 class="text-lg font-bold text-gray-800">Lunch</h3>
+                        <span class="time-badge"><i class="fas fa-clock mr-1"></i>12:00 – 12:45 PM</span>
+                    </div>
+                    <p class="text-sm font-semibold text-blue-600"><i class="fas fa-map-marker-alt mr-1"></i>Student Center</p>
+                </div>
+
+                <div class="schedule-item plenary">
+                    <div class="flex items-start justify-between mb-3">
+                        <h3 class="text-lg font-bold text-gray-800">Closing Plenary: Ideal Student Learning Experience</h3>
+                        <span class="time-badge"><i class="fas fa-clock mr-1"></i>1:00 – 2:00 PM</span>
+                    </div>
+                    <p class="text-sm font-semibold text-blue-600"><i class="fas fa-map-marker-alt mr-1"></i>Student Center</p>
+                    <p class="text-gray-700 mt-2">Five parallel sessions in various locations throughout the Student Center.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sessions Section -->
+        <section id="sessions" class="section hidden">
+            <div class="mb-8">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Breakout Sessions</h2>
+                <p class="text-gray-600 mb-6">Attend up to two breakout sessions during Session 1 (10:10–10:55 AM) and Session 2 (11:15 AM–12:00 PM)</p>
+                
+                <div class="flex flex-col sm:flex-row gap-4 mb-6">
+                    <input type="text" id="search-sessions" placeholder="Search sessions..." 
+                           class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <select id="filter-tag" class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option value="">All Sessions</option>
+                        <option value="Complete">Complete</option>
+                        <option value="Engage">Engage</option>
+                        <option value="Thrive">Thrive</option>
+                    </select>
+                </div>
+            </div>
+
+            <div id="sessions-container" class="space-y-4">
+                <!-- Sessions will be populated here -->
+            </div>
+        </section>
+
+        <!-- Favorites Section -->
+        <section id="favorites" class="section hidden">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6">My Favorite Sessions</h2>
+            <button onclick="clearAllFavorites()" class="mb-6 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition">
+                <i class="fas fa-trash mr-2"></i>Clear All Favorites
+            </button>
+            <div id="favorites-container">
+                <div class="no-favorites">
+                    <i class="fas fa-bookmark"></i>
+                    <p class="text-xl font-semibold mt-2">No Favorites Yet</p>
+                    <p class="text-gray-500 mt-1">Click the bookmark icon on sessions to save them here</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Lunch Section -->
+        <section id="lunch" class="section hidden">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6">Lunch Information</h2>
+            <div class="bg-yellow-50 border-l-4 border-yellow-400 p-6 mb-8 rounded">
+                <p class="text-gray-800 font-semibold mb-3">
+                    <i class="fas fa-info-circle text-yellow-600 mr-2"></i>
+                    Boxed lunches will be available for pickup in the Student Center after the second breakout session.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-white p-6 rounded-lg border-l-4 border-blue-500">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4"><i class="fas fa-building mr-2 text-blue-500"></i>Student Center</h3>
+                    <ul class="space-y-2 text-gray-700">
+                        <li><i class="fas fa-check text-green-500 mr-2"></i>Food Court (main level)</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i>Student Event Center (main level)</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i>Oak Room (2nd Floor)</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i>Corner Room #219 (2nd Floor)</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i>Rooms 221/223 (2nd Floor)</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i>Rooms 207/213 (2nd Floor)</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i>Den 1 and 2 (basement)</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i>Senate Room 030 (basement)</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg border-l-4 border-blue-500">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4"><i class="fas fa-building mr-2 text-blue-500"></i>Other Locations</h3>
+                    <div class="mb-4">
+                        <p class="font-semibold text-gray-800">Technology Building</p>
+                        <p class="text-gray-700 ml-4">Professional Development Center (2nd Floor)</p>
+                    </div>
+                    <div>
+                        <p class="font-semibold text-gray-800">Academic and Administration Building</p>
+                        <p class="text-gray-700 ml-4">Classroom 135</p>
+                        <p class="text-gray-700 ml-4">Classroom 235</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-8 bg-blue-50 border-l-4 border-blue-500 p-6 rounded">
+                <p class="text-gray-700">Take a break, enjoy your meal, and connect with colleagues before the final session!</p>
+            </div>
+        </section>
+
+        <!-- ISLE Section -->
+        <section id="isle" class="section hidden isle-section rounded-lg p-8">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6">Ideal Student Learning Experience (ISLE)</h2>
+            
+            <div class="bg-white p-8 rounded-lg border-l-4 border-blue-500 mb-6">
+                <div class="flex items-start gap-4 mb-6">
+                    <div class="text-4xl text-blue-500">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-2">Closing Plenary: Ideal Student Learning Experience</h3>
+                        <p class="text-gray-600 font-semibold mb-4">
+                            <i class="fas fa-clock text-blue-500 mr-2"></i>1:00 – 2:00 PM | 
+                            <i class="fas fa-map-marker-alt text-blue-500 mr-2"></i>Student Center
+                        </p>
+                    </div>
+                </div>
+
+                <div class="bg-blue-50 p-6 rounded mb-6">
+                    <h4 class="text-lg font-bold text-gray-800 mb-4">About This Session</h4>
+                    <p class="text-gray-700 mb-4">
+                        This unique closing plenary features SLCC's Provost <strong>Dr. Jamie Cooper</strong> and other institutional leaders unveiling and walking the audience through the <strong>Ideal Student Learning Experience</strong>.
+                    </p>
+                    <p class="text-gray-700 mb-4">
+                        This is a pivotal moment in our institutional journey. The ISLE framework represents our collective vision for what an exceptional learning experience looks like at SLCC—one where students are supported, engaged, and empowered to succeed across all modalities and settings.
+                    </p>
+                    <p class="text-gray-700">
+                        Join us as we explore the key components of ISLE and discuss how each of us contributes to creating these ideal experiences for our students.
+                    </p>
+                </div>
+
+                <div class="bg-white border border-gray-200 p-6 rounded">
+                    <h4 class="font-bold text-gray-800 mb-3">Key Focus Areas</h4>
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <span class="text-blue-500 mr-3 font-bold">✓</span>
+                            <span class="text-gray-700">How relationship-rich education transforms student success</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-blue-500 mr-3 font-bold">✓</span>
+                            <span class="text-gray-700">Creating equitable and engaging learning environments</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-blue-500 mr-3 font-bold">✓</span>
+                            <span class="text-gray-700">Supporting student completion and pathways to success</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-blue-500 mr-3 font-bold">✓</span>
+                            <span class="text-gray-700">Implementing ISLE principles across all SLCC campuses</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="alert-box bg-yellow-50 border-l-4 border-yellow-400 p-6 rounded">
+                <p class="text-gray-800"><i class="fas fa-lightbulb text-yellow-600 mr-2"></i>
+                    <strong>Coming Soon:</strong> Full details of the ISLE framework, including components, learning outcomes, and implementation strategies will be shared during this session.
+                </p>
+            </div>
+        </section>
+
+        <!-- Maps Section -->
+        <section id="maps" class="section hidden">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6">Campus Locations & Maps</h2>
+            <p class="text-gray-600 mb-8">Click on any location to view an interactive map and get directions.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Redwood Campus -->
+                <div class="bg-white p-6 rounded-lg border-l-4 border-blue-500 hover:shadow-lg transition cursor-pointer" 
+                     onclick="openMapModal('Redwood Campus', 'https://use.mazemap.com/#v=1&config=slcctag&campusid=2182&zlevel=1&center=-111.943599,40.672533&zoom=16.4')">
+                    <h3 class="text-xl font-bold text-gray-800 mb-2"><i class="fas fa-map-marker-alt text-blue-500 mr-2"></i>Redwood Campus</h3>
+                    <p class="text-gray-600">Main campus location with multiple buildings and facilities.</p>
+                </div>
+
+                <!-- Life Time Activity Center (LAC) -->
+                <div class="bg-white p-6 rounded-lg border-l-4 border-blue-500 hover:shadow-lg transition cursor-pointer" 
+                     onclick="openMapModal('Life Time Activity Center (LAC)', 'https://use.mazemap.com/#v=1&config=slcctag&campusid=2182&zlevel=1&center=-111.945652,40.672960&zoom=18&sharepoitype=poi&sharepoi=1002808695')">
+                    <h3 class="text-xl font-bold text-gray-800 mb-2"><i class="fas fa-map-marker-alt text-blue-500 mr-2"></i>Life Time Activity Center (LAC)</h3>
+                    <p class="text-gray-600">Athletic and recreational facilities center.</p>
+                </div>
+
+                <!-- Technology Building First Floor -->
+                <div class="bg-white p-6 rounded-lg border-l-4 border-blue-500 hover:shadow-lg transition cursor-pointer" 
+                     onclick="openMapModal('Technology Building 1st Floor', 'https://use.mazemap.com/#v=1&config=slcctag&campusid=2182&zlevel=1&center=-111.941378,40.672098&zoom=18&sharepoitype=poi&sharepoi=1002781907')">
+                    <h3 class="text-xl font-bold text-gray-800 mb-2"><i class="fas fa-map-marker-alt text-blue-500 mr-2"></i>Technology Building - 1st Floor</h3>
+                    <p class="text-gray-600">Techonlogy Building First Floor.</p>
+                </div>
+                <!-- Technology Building Second Floor -->
+                <div class="bg-white p-6 rounded-lg border-l-4 border-blue-500 hover:shadow-lg transition cursor-pointer" 
+                     onclick="openMapModal('Technology Building 2nd Floor', 'https://use.mazemap.com/#v=1&config=slcctag&campusid=2182&zlevel=2&center=-111.941378,40.672098&zoom=18&sharepoitype=poi&sharepoi=1002781907')">
+                    <h3 class="text-xl font-bold text-gray-800 mb-2"><i class="fas fa-map-marker-alt text-blue-500 mr-2"></i>Technology Building - 2nd Floor</h3>
+                    <p class="text-gray-600">Techonlogy Building Second Floor.</p>
+                </div>
+
+                <!-- Student Center Basement -->
+                <div class="bg-white p-6 rounded-lg border-l-4 border-blue-500 hover:shadow-lg transition cursor-pointer" 
+                     onclick="openMapModal('Student Center - Basement', 'https://use.mazemap.com/#v=1&config=slcctag&campusid=2182&zlevel=-1&center=-111.942873,40.671630&zoom=18&sharepoitype=poi&sharepoi=1002809006')">
+                    <h3 class="text-xl font-bold text-gray-800 mb-2"><i class="fas fa-map-marker-alt text-blue-500 mr-2"></i>Student Center - Basement</h3>
+                    <p class="text-gray-600">Student Center basement level areas.</p>
+                </div>
+
+                <!-- Student Center First Floor -->
+                <div class="bg-white p-6 rounded-lg border-l-4 border-blue-500 hover:shadow-lg transition cursor-pointer" 
+                     onclick="openMapModal('Student Center - First Floor', 'https://use.mazemap.com/#v=1&config=slcctag&campusid=2182&zlevel=1&center=-111.942873,40.671630&zoom=18&sharepoitype=poi&sharepoi=1002809006')">
+                    <h3 class="text-xl font-bold text-gray-800 mb-2"><i class="fas fa-map-marker-alt text-blue-500 mr-2"></i>Student Center - 1st Floor</h3>
+                    <p class="text-gray-600">Student Center first floor areas.</p>
+                </div>
+
+                <!-- Student Center Second Floor -->
+                <div class="bg-white p-6 rounded-lg border-l-4 border-blue-500 hover:shadow-lg transition cursor-pointer" 
+                     onclick="openMapModal('Student Center - Second Floor', 'https://use.mazemap.com/#v=1&config=slcctag&campusid=2182&zlevel=2&center=-111.942873,40.671630&zoom=18&sharepoitype=poi&sharepoi=1002809006')">
+                    <h3 class="text-xl font-bold text-gray-800 mb-2"><i class="fas fa-map-marker-alt text-blue-500 mr-2"></i>Student Center - 2nd Floor</h3>
+                    <p class="text-gray-600">Student Center second floor areas.</p>
+                </div>
+
+                <!-- Academic Administration Building -->
+                <div class="bg-white p-6 rounded-lg border-l-4 border-blue-500 hover:shadow-lg transition cursor-pointer" 
+                     onclick="openMapModal('Academic & Administration Building', 'https://use.mazemap.com/#v=1&config=slcctag&campusid=2182&zlevel=1&center=-111.944221,40.670779&zoom=18&sharepoitype=poi&sharepoi=1002809610')">
+                    <h3 class="text-xl font-bold text-gray-800 mb-2"><i class="fas fa-map-marker-alt text-blue-500 mr-2"></i>Academic & Administration Building</h3>
+                    <p class="text-gray-600">Academic and administrative offices.</p>
+                </div>
+            </div>
+
+            <div class="mt-8 bg-blue-50 border-l-4 border-blue-500 p-6 rounded">
+                <p class="text-gray-700"><i class="fas fa-info-circle text-blue-500 mr-2"></i>
+                    <strong>Need directions?</strong> Click on any location card above to view an interactive map and get detailed directions to that area on the Redwood Campus.
+                </p>
+            </div>
+        </section>
+
+        <!-- Information Section -->
+        <section id="info" class="section hidden">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6">Additional Information</h2>
+
+            <!-- Upcoming Events -->
+            <div class="mb-8">
+                <h3 class="text-2xl font-bold text-gray-800 mb-4">Upcoming Events</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-white p-6 rounded-lg border-l-4 border-blue-500">
+                        <p class="text-sm text-gray-500 font-semibold">February 27, 2026</p>
+                        <p class="font-bold text-gray-800 mt-1">Beloved Community Events</p>
+                        <p class="text-gray-600 text-sm mt-2">
+                            <i class="fas fa-map-marker-alt mr-1 text-blue-500"></i>South City Campus
+                        </p>
+                        <p class="text-gray-600 text-sm">
+                            <i class="fas fa-clock mr-1 text-blue-500"></i>6:00–9:00 PM
+                        </p>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-lg border-l-4 border-blue-500">
+                        <p class="text-sm text-gray-500 font-semibold">March 24, 2026</p>
+                        <p class="font-bold text-gray-800 mt-1">Community Conversations – Olympic Speedskating Athletes</p>
+                        <p class="text-gray-600 text-sm mt-2">
+                            <i class="fas fa-map-marker-alt mr-1 text-blue-500"></i>STC Oak Room
+                        </p>
+                        <p class="text-gray-600 text-sm">
+                            <i class="fas fa-clock mr-1 text-blue-500"></i>12:00–1:00 PM
+                        </p>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-lg border-l-4 border-blue-500">
+                        <p class="text-sm text-gray-500 font-semibold">March 26, 2026</p>
+                        <p class="font-bold text-gray-800 mt-1">Big Questions Forum – Alok</p>
+                        <p class="text-gray-600 text-sm mt-2">
+                            <i class="fas fa-map-marker-alt mr-1 text-blue-500"></i>Location TBD
+                        </p>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-lg border-l-4 border-blue-500">
+                        <p class="text-sm text-gray-500 font-semibold">April 24, 2026</p>
+                        <p class="font-bold text-gray-800 mt-1">Employee Recognition</p>
+                        <p class="text-gray-600 text-sm mt-2">
+                            <i class="fas fa-map-marker-alt mr-1 text-blue-500"></i>Jordan Campus
+                        </p>
+                        <p class="text-gray-600 text-sm">
+                            <i class="fas fa-clock mr-1 text-blue-500"></i>9:00 AM–2:00 PM
+                        </p>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-lg border-l-4 border-blue-500">
+                        <p class="text-sm text-gray-500 font-semibold">May 8, 2026</p>
+                        <p class="font-bold text-gray-800 mt-1">Commencement</p>
+                        <p class="text-gray-600 text-sm mt-2">
+                            <i class="fas fa-map-marker-alt mr-1 text-blue-500"></i>Maverik Center
+                        </p>
+                        <p class="text-gray-600 text-sm">
+                            <i class="fas fa-clock mr-1 text-blue-500"></i>10:00 AM–12:00 PM
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Giving Day -->
+            <div class="mb-8 bg-gradient-to-r from-blue-50 to-blue-100 p-6 rounded-lg border-l-4 border-blue-500">
+                <h3 class="text-2xl font-bold text-gray-800 mb-3"><i class="fas fa-heart text-blue-500 mr-2"></i>Giving Day</h3>
+                <p class="text-gray-700">More details coming soon. Stay tuned for ways to support and celebrate SLCC's Giving Day.</p>
+            </div>
+
+            <!-- Wi-Fi Access -->
+            <div class="mb-8 bg-white p-6 rounded-lg border-l-4 border-green-500">
+                <h3 class="text-2xl font-bold text-gray-800 mb-3"><i class="fas fa-wifi text-green-500 mr-2"></i>Wi-Fi Access</h3>
+                <p class="text-gray-700 mb-3">Wi-Fi is available throughout the SLCC Redwood Campus.</p>
+                <p class="text-gray-700">
+                    For connection help, visit the Student Technology Guide:
+                    <a href="https://slcc.edu/student-tech-guide/wifi-help.aspx" target="_blank" class="text-blue-600 font-semibold hover:underline">
+                        https://slcc.edu/student-tech-guide/wifi-help.aspx
+                    </a>
+                </p>
+            </div>
+
+            <!-- Wellness Stations -->
+            <div class="bg-white p-6 rounded-lg border-l-4 border-purple-500">
+                <h3 class="text-2xl font-bold text-gray-800 mb-3"><i class="fas fa-leaf text-purple-500 mr-2"></i>Wellness Stations</h3>
+                <p class="text-gray-700 mb-4">Recharge between breakout sessions at one of our <strong>Wellness Stations</strong>, located in:</p>
+                <ul class="space-y-2 text-gray-700 mb-4">
+                    <li><i class="fas fa-check text-green-500 mr-2"></i>Student Center</li>
+                    <li><i class="fas fa-check text-green-500 mr-2"></i>Academic and Administration Building (AAB) Lobby</li>
+                    <li><i class="fas fa-check text-green-500 mr-2"></i>Technology Building (TB) Lobby</li>
+                </ul>
+                <p class="text-gray-700 mb-4">Stop by for healthy snacks, flavored water packets, and resources on SLCC's Employee Wellness programs. Team members will be available to answer questions and share tips to help you meet your wellness goals.</p>
+                <div class="bg-purple-50 p-4 rounded">
+                    <p class="text-gray-700">
+                        <strong>Employee Wellness Site:</strong>
+                        <a href="https://i.slcc.edu/culture/wellness/index.aspx" target="_blank" class="text-blue-600 hover:underline">
+                            https://i.slcc.edu/culture/wellness/index.aspx
+                        </a>
+                    </p>
+                    <p class="text-gray-700 mt-2">
+                        <strong>Employee Wellness QR Code:</strong> Available on-site
+                    </p>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-to-top" onclick="scrollToTop()">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Map Modal -->
+    <div id="map-modal" class="modal">
+        <div class="modal-content" style="max-width: 900px; max-height: 90vh;">
+            <span class="close-modal" onclick="closeMapModal()">&times;</span>
+            <h2 id="map-title" class="text-2xl font-bold text-gray-800 mb-4"></h2>
+            <iframe id="map-iframe" width="100%" height="600" style="border:0; border-radius: 0.5rem;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+    </div>
+
+    <!-- Favicon Placeholder -->
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%23109AD6' width='100' height='100'/><text x='50' y='65' font-size='60' font-weight='bold' fill='white' text-anchor='middle'>S</text></svg>">
+
+    <script>
+        // Embedded sessions data
+        const sessionsData = {
+            "BreakoutSessions": [
+                {
+                    "Title": "Strengthening Student Success Through Collaborative Advising",
+                    "Presenters": [
+                        {"Name": "Anni Tedder", "Position": "Senior Director", "Department": "Academic Advising"},
+                        {"Name": "Maria Murguia", "Position": "Health Science Academic Advisor", "Department": "Health Sciences"},
+                        {"Name": "Cher Knupp", "Position": "Program Manager", "Department": "Health Science Admission"},
+                        {"Name": "Joel Shelton", "Position": "Academic Advisor", "Department": "Science, Math & Engineering"},
+                        {"Name": "Michael Empey", "Position": "Assistant Professor", "Department": "Engineering"}
+                    ],
+                    "Description": "This presentation focuses on the value of collaborative advising and how shared approaches can enhance student support and success. The session highlights collaborative efforts among academic advisors, faculty, and colleagues within academic programs. Presenters will share their unique experiences, strategies, and insights, illustrating how partnership-based advising strengthens relationships, improves communication, and leads to more meaningful outcomes for students.",
+                    "VisionMatrixTag": ["Complete"]
+                },
+                {
+                    "Title": "Panel Session - Building a Relationship-Rich Education",
+                    "Presenters": [
+                        {"Name": "Sarah Billington", "Position": "Associate Professor, Communication; FTLC Faculty Fellow", "Department": "Communication"},
+                        {"Name": "Kristin Morley", "Position": "Assistant Director", "Department": "Faculty Teaching and Learning Center"}
+                    ],
+                    "Description": "This interactive discussion explores relationship-rich education and how meaningful connections between students, faculty, and staff transform learning and success in higher education. Panelists share insights, practical strategies, and real-world stories about creating a culture where relationships matter across in-person, online, and livestream learning environments.",
+                    "VisionMatrixTag": ["Complete"]
+                },
+                {
+                    "Title": "Shaping the Ideal Student Learning Experience: Faculty at the Heart of Student Success",
+                    "Presenters": [
+                        {"Name": "Kristin Cartwright", "Position": "Associate Professor, Mathematics", "Department": "Faculty Teaching and Learning Center"},
+                        {"Name": "Alia Criddle", "Position": "Director of Faculty Development", "Department": "Faculty Teaching and Learning Center"}
+                    ],
+                    "Description": "This breakout session explores what an ideal classroom looks like for SLCC students and how faculty-centered strategies support student success. Participants will brainstorm practical pedagogical practices, structural needs, and actionable ideas to build meaningful, engaging, and equitable learning experiences.",
+                    "VisionMatrixTag": ["Complete"]
+                },
+                {
+                    "Title": "Growing Together: Building Careers and Teams",
+                    "Presenters": [
+                        {"Name": "Cecile Delozier", "Position": "Interim Dean", "Department": "Salt Lake Tech"},
+                        {"Name": "Kathy Shipley", "Position": "Manager", "Department": "Facilities and Key Office"},
+                        {"Name": "Richard Diaz", "Position": "Senior Director", "Department": "Orientation and Student Success"},
+                        {"Name": "Gavin Harper", "Position": "Assistant Provost", "Department": "eLearning/Digital Initiatives"}
+                    ],
+                    "Description": "This session provides a collaborative space to explore strategies for career development and personal growth. Participants will discuss career conversations, growth opportunities, feedback practices, and self-advocacy while learning how to support engagement and development for themselves and their teams.",
+                    "VisionMatrixTag": ["Engage", "Complete", "Thrive"]
+                },
+                {
+                    "Title": "Cultivating Emotional Strength in Times of Transition",
+                    "Presenters": [
+                        {"Name": "Christina McWhinnie", "Position": "Employee Wellness Manager", "Department": "Employee Wellness"},
+                        {"Name": "Employee Wellness Team", "Position": "Team", "Department": "Employee Wellness"}
+                    ],
+                    "Description": "This interactive session focuses on fostering adaptability and promoting growth during times of change. Participants will learn evidence-based strategies to build emotional resilience, reframe uncertainty, and integrate self-care practices that support long-term well-being.",
+                    "VisionMatrixTag": ["Engage", "Complete", "Thrive"]
+                },
+                {
+                    "Title": "From Data to Decisions - Advancing SLCC's Institutional Analytics through the DSA Roadmap and Data Governance Framework",
+                    "Presenters": [
+                        {"Name": "Leonel Nieto", "Position": "Associate Vice President", "Department": "Institutional Effectiveness"}
+                    ],
+                    "Description": "This presentation outlines SLCC's comprehensive data strategy for unifying analytics, governance, and decision-making. It highlights the Data Science and Analytics Roadmap and the evolution of the Data Governance Framework to support transparent reporting, shared ownership, and data-informed progress.",
+                    "VisionMatrixTag": ["Engage", "Complete", "Thrive"]
+                },
+                {
+                    "Title": "The Engagement Advantage - Cultivating Students and Communities that Thrive",
+                    "Presenters": [
+                        {"Name": "Lucy Smith", "Position": "Director", "Department": "Engaged Learning"},
+                        {"Name": "Jen Seltzer Stitt", "Position": "Director", "Department": "Community Relations"},
+                        {"Name": "Anita Lui", "Position": "Assistant Director", "Department": "Community Engagement"}
+                    ],
+                    "Description": "This hands-on session explores how community-engaged learning and partnerships can help students, the college, and communities thrive. Participants will examine strategies, tools, and real-world examples that support connection, belonging, and collective success.",
+                    "VisionMatrixTag": ["Thrive"]
+                },
+                {
+                    "Title": "Designing Programs for Student Success - From Structure to Scheduling",
+                    "Presenters": [
+                        {"Name": "Rachel Lewis", "Position": "Associate Provost", "Department": "Academic Systems"},
+                        {"Name": "David Brower", "Position": "Senior Director", "Department": "Curriculum and Academic Scheduling"}
+                    ],
+                    "Description": "This session highlights program design and scheduling practices that prioritize student completion and success. Participants will learn how clear requirements, intentional sequencing, and aligned scheduling reduce barriers and support timely program completion.",
+                    "VisionMatrixTag": ["Complete"]
+                },
+                {
+                    "Title": "Empowering the Change You Want: Authentically Confronting Problems with Incremental Change in Mind",
+                    "Presenters": [
+                        {"Name": "Christina Holm", "Position": "Assistant Director", "Department": "Library Academic Services"},
+                        {"Name": "Shawn Adrian", "Position": "Coordinator", "Department": "Catalog & Degree Audit"}
+                    ],
+                    "Description": "This session demonstrates how a large strategic goal can be translated into a low-lift, action-based solution. Participants will map a friction point in their work and outline a realistic next step using guided reflection and optional peer sharing.",
+                    "VisionMatrixTag": ["Complete"]
+                },
+                {
+                    "Title": "Strategic Doing at SLCC - Turning Vision into Collaborative Action",
+                    "Presenters": [
+                        {"Name": "Brandi Mair", "Position": "Chief of Staff", "Department": "President's Office"},
+                        {"Name": "Natalie Spendlove", "Position": "Program Manager", "Department": "Operations, Engagement, Events & Analytics"}
+                    ],
+                    "Description": "Grounded in the book Strategic Doing, this session focuses on applying agile leadership skills to address complex challenges through collaboration, trust, and incremental progress aligned with SLCC's shared vision.",
+                    "VisionMatrixTag": ["Engage", "Complete", "Thrive"]
+                },
+                {
+                    "Title": "The RACI Advantage - Project Management for Every Employee",
+                    "Presenters": [
+                        {"Name": "Anjali Pai", "Position": "Director", "Department": "Staff Development & Employee Experience"},
+                        {"Name": "Gabe Byars", "Position": "Faculty Senate President", "Department": "Faculty Senate"}
+                    ],
+                    "Description": "This interactive session introduces the RACI framework and demonstrates how it improves project clarity and collaboration. Participants will leave with a practical tool to apply immediately.",
+                    "VisionMatrixTag": ["Engage", "Complete", "Thrive"]
+                },
+                {
+                    "Title": "Operationalizing our Mission: From Purpose to Practice",
+                    "Presenters": [
+                        {"Name": "Josh Sylvester", "Position": "Associate Vice President", "Department": "Facilities Services"},
+                        {"Name": "Alonso Reyna Rivarola", "Position": "Director", "Department": "PACE Programs"}
+                    ],
+                    "Description": "This session explores how individual roles connect to SLCC's mission through purpose-driven work, operational planning, and practical tools that keep student success outcomes at the center.",
+                    "VisionMatrixTag": ["Engage", "Complete", "Thrive"]
+                }
+            ]
+        };
+
+        // Initialize favorites from localStorage
+        function initializeFavorites() {
+            const stored = localStorage.getItem('slccFavorites');
+            return stored ? JSON.parse(stored) : [];
+        }
+
+        let favorites = initializeFavorites();
+
+        // Save favorites to localStorage
+        function saveFavorites() {
+            localStorage.setItem('slccFavorites', JSON.stringify(favorites));
+            updateFavoriteCount();
+            renderFavoriteSessions();
+        }
+
+        // Toggle favorite
+        function toggleFavorite(index) {
+            const session = sessionsData.BreakoutSessions[index];
+            const exists = favorites.findIndex(s => s.Title === session.Title);
+            
+            if (exists !== -1) {
+                favorites.splice(exists, 1);
+            } else {
+                favorites.push(session);
+            }
+            saveFavorites();
+            renderSessions();
+            
+            // Show feedback
+            const btn = document.querySelector(`[data-session-index="${index}"]`);
+            if (btn) {
+                const icon = btn.querySelector('i');
+                if (icon.classList.contains('fas')) {
+                    icon.classList.remove('far');
+                    icon.classList.add('fas');
+                } else {
+                    icon.classList.remove('fas');
+                    icon.classList.add('far');
+                }
+            }
+        }
+
+        // Check if session is favorited
+        function isFavorited(sessionTitle) {
+            return favorites.some(s => s.Title === sessionTitle);
+        }
+
+        // Update favorite count badge
+        function updateFavoriteCount() {
+            const badge = document.getElementById('favorite-count');
+            const mobileBadge = document.getElementById('mobile-favorite-count');
+            
+            if (favorites.length > 0) {
+                badge.textContent = favorites.length;
+                badge.classList.remove('hidden');
+                mobileBadge.textContent = favorites.length;
+                mobileBadge.classList.remove('hidden');
+            } else {
+                badge.classList.add('hidden');
+                mobileBadge.classList.add('hidden');
+            }
+        }
+
+        // Render all sessions
+        function renderSessions() {
+            const container = document.getElementById('sessions-container');
+            const searchTerm = document.getElementById('search-sessions').value.toLowerCase();
+            const filterTag = document.getElementById('filter-tag').value;
+
+            let filtered = sessionsData.BreakoutSessions.filter((session, index) => {
+                const matchSearch = session.Title.toLowerCase().includes(searchTerm) || 
+                                  session.Description.toLowerCase().includes(searchTerm) ||
+                                  session.Presenters.some(p => p.Name.toLowerCase().includes(searchTerm));
+                
+                const matchTag = !filterTag || session.VisionMatrixTag.includes(filterTag);
+                
+                return matchSearch && matchTag;
+            });
+
+            container.innerHTML = filtered.map((session, idx) => {
+                const realIndex = sessionsData.BreakoutSessions.findIndex(s => s.Title === session.Title);
+                const isFav = isFavorited(session.Title);
+                const tagColor = {
+                    'Complete': 'bg-blue-100 text-blue-800',
+                    'Engage': 'bg-purple-100 text-purple-800',
+                    'Thrive': 'bg-green-100 text-green-800'
+                };
+
+                return `
+                    <div class="session-card p-6">
+                        <div class="flex items-start justify-between mb-3">
+                            <h3 class="text-lg font-bold text-gray-800 flex-1 break-words">${session.Title}</h3>
+                            <button class="ml-4 flex-shrink-0 text-2xl" onclick="toggleFavorite(${realIndex})" data-session-index="${realIndex}">
+                                <i class="fa${isFav ? 's' : 'r'} fa-bookmark ${isFav ? 'text-yellow-400' : 'text-gray-300'} favorite-btn"></i>
+                            </button>
+                        </div>
+                        
+                        <div class="flex flex-wrap gap-2 mb-3">
+                            ${session.VisionMatrixTag.map(tag => `
+                                <span class="tag ${tagColor[tag]}">${tag}</span>
+                            `).join('')}
+                        </div>
+
+                        <p class="text-gray-700 mb-4">${session.Description}</p>
+
+                        <div class="bg-gray-50 p-4 rounded mb-4 border-l-2 border-yellow-400">
+                            <p class="font-semibold text-gray-800 mb-2"><i class="fas fa-users text-blue-500 mr-2"></i>Presenters</p>
+                            <div class="space-y-2">
+                                ${session.Presenters.map(presenter => `
+                                    <div class="presenter-item">
+                                        <p class="font-semibold text-gray-800">${presenter.Name}</p>
+                                        <p class="text-sm text-gray-600">${presenter.Position}</p>
+                                        <p class="text-xs text-gray-500">${presenter.Department}</p>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+
+                        <div class="text-sm">
+                            <span class="location-badge"><i class="fas fa-map-marker-alt mr-1"></i>10:10-10:55 AM & 11:15 AM-12:00 PM</span>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            if (filtered.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-8 text-gray-500">
+                        <i class="fas fa-search text-4xl mb-4"></i>
+                        <p class="text-lg font-semibold">No sessions found</p>
+                        <p class="text-sm">Try adjusting your search or filters</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Render favorite sessions
+        function renderFavoriteSessions() {
+            const container = document.getElementById('favorites-container');
+            
+            if (favorites.length === 0) {
+                container.innerHTML = `
+                    <div class="no-favorites">
+                        <i class="fas fa-bookmark"></i>
+                        <p class="text-xl font-semibold mt-2">No Favorites Yet</p>
+                        <p class="text-gray-500 mt-1">Click the bookmark icon on sessions to save them here</p>
+                    </div>
+                `;
+                return;
+            }
+
+            const tagColor = {
+                'Complete': 'bg-blue-100 text-blue-800',
+                'Engage': 'bg-purple-100 text-purple-800',
+                'Thrive': 'bg-green-100 text-green-800'
+            };
+
+            container.innerHTML = favorites.map(session => {
+                const realIndex = sessionsData.BreakoutSessions.findIndex(s => s.Title === session.Title);
+                return `
+                    <div class="session-card p-6">
+                        <div class="flex items-start justify-between mb-3">
+                            <h3 class="text-lg font-bold text-gray-800 flex-1 break-words">${session.Title}</h3>
+                            <button class="ml-4 flex-shrink-0 text-2xl" onclick="toggleFavorite(${realIndex})">
+                                <i class="fas fa-bookmark text-yellow-400 favorite-btn active"></i>
+                            </button>
+                        </div>
+                        
+                        <div class="flex flex-wrap gap-2 mb-3">
+                            ${session.VisionMatrixTag.map(tag => `
+                                <span class="tag ${tagColor[tag]}">${tag}</span>
+                            `).join('')}
+                        </div>
+
+                        <p class="text-gray-700 mb-4">${session.Description}</p>
+
+                        <div class="bg-gray-50 p-4 rounded mb-4 border-l-2 border-yellow-400">
+                            <p class="font-semibold text-gray-800 mb-2"><i class="fas fa-users text-blue-500 mr-2"></i>Presenters</p>
+                            <div class="space-y-2">
+                                ${session.Presenters.map(presenter => `
+                                    <div class="presenter-item">
+                                        <p class="font-semibold text-gray-800">${presenter.Name}</p>
+                                        <p class="text-sm text-gray-600">${presenter.Position}</p>
+                                        <p class="text-xs text-gray-500">${presenter.Department}</p>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+
+                        <div class="text-sm">
+                            <span class="location-badge"><i class="fas fa-map-marker-alt mr-1"></i>10:10-10:55 AM & 11:15 AM-12:00 PM</span>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Toggle mobile menu
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Close mobile menu
+        function closeMobileMenu() {
+            document.getElementById('mobile-menu').classList.add('hidden');
+        }
+
+        // Show section
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.add('hidden');
+            });
+
+            // Show selected section
+            document.getElementById(sectionId).classList.remove('hidden');
+
+            // Update nav styling
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('nav-active');
+            });
+
+            if (event && event.target) {
+                const navItem = event.target.closest('.nav-item');
+                if (navItem) {
+                    navItem.classList.add('nav-active');
+                }
+            }
+
+            // Render sessions if showing sessions section
+            if (sectionId === 'sessions') {
+                renderSessions();
+            }
+
+            // Close mobile menu
+            closeMobileMenu();
+
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        // Open map modal with cache-busting iframe
+        function openMapModal(title, mapUrl) {
+            const modal = document.getElementById('map-modal');
+            const titleElement = document.getElementById('map-title');
+            const iframe = document.getElementById('map-iframe');
+            
+            titleElement.textContent = title;
+            
+            // Add cache-busting parameter to prevent caching
+            const cacheBustedUrl = mapUrl + '&t=' + new Date().getTime();
+            iframe.src = cacheBustedUrl;
+            
+            modal.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Close map modal
+        function closeMapModal() {
+            const modal = document.getElementById('map-modal');
+            modal.classList.remove('show');
+            document.body.style.overflow = 'auto';
+            
+            // Clear iframe source to free up resources
+            document.getElementById('map-iframe').src = '';
+        }
+
+        // Close modal when clicking outside
+        window.addEventListener('click', (e) => {
+            const modal = document.getElementById('map-modal');
+            if (e.target === modal) {
+                closeMapModal();
+            }
+        });
+
+        // Clear all favorites
+        function clearAllFavorites() {
+            if (confirm('Are you sure you want to clear all favorite sessions?')) {
+                favorites = [];
+                saveFavorites();
+                renderFavoriteSessions();
+            }
+        }
+
+        // Scroll to top
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Show/hide scroll to top button
+        window.addEventListener('scroll', () => {
+            const btn = document.querySelector('.scroll-to-top');
+            if (window.scrollY > 300) {
+                btn.classList.add('show');
+            } else {
+                btn.classList.remove('show');
+            }
+        });
+
+        // Search and filter event listeners
+        document.getElementById('search-sessions').addEventListener('input', renderSessions);
+        document.getElementById('filter-tag').addEventListener('change', renderSessions);
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            updateFavoriteCount();
+            renderFavoriteSessions();
+            document.querySelector('.nav-item').classList.add('nav-active');
+        });
+    </script>
+
+</body>
+</html>

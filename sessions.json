@@ -1,0 +1,238 @@
+{
+  "BreakoutSessions": [
+    {
+      "Title": "Strengthening Student Success Through Collaborative Advising",
+      "Presenters": [
+        {
+          "Name": "Anni Tedder",
+          "Position": "Senior Director",
+          "Department": "Academic Advising"
+        },
+        {
+          "Name": "Maria Murguia",
+          "Position": "Health Science Academic Advisor",
+          "Department": "Health Sciences"
+        },
+        {
+          "Name": "Cher Knupp",
+          "Position": "Program Manager",
+          "Department": "Health Science Admission"
+        },
+        {
+          "Name": "Joel Shelton",
+          "Position": "Academic Advisor",
+          "Department": "Science, Math & Engineering"
+        },
+        {
+          "Name": "Michael Empey",
+          "Position": "Assistant Professor",
+          "Department": "Engineering"
+        }
+      ],
+      "Description": "This presentation focuses on the value of collaborative advising and how shared approaches can enhance student support and success. The session highlights collaborative efforts among academic advisors, faculty, and colleagues within academic programs. Presenters will share their unique experiences, strategies, and insights, illustrating how partnership-based advising strengthens relationships, improves communication, and leads to more meaningful outcomes for students.",
+      "VisionMatrixTag": ["Complete"]
+    },
+    {
+      "Title": "Panel Session - Building a Relationship-Rich Education",
+      "Presenters": [
+        {
+          "Name": "Sarah Billington",
+          "Position": "Associate Professor, Communication; FTLC Faculty Fellow",
+          "Department": "Communication"
+        },
+        {
+          "Name": "Kristin Morley",
+          "Position": "Assistant Director",
+          "Department": "Faculty Teaching and Learning Center"
+        }
+      ],
+      "Description": "This interactive discussion explores relationship-rich education and how meaningful connections between students, faculty, and staff transform learning and success in higher education. Panelists share insights, practical strategies, and real-world stories about creating a culture where relationships matter across in-person, online, and livestream learning environments.",
+      "VisionMatrixTag": ["Complete"]
+    },
+    {
+      "Title": "Shaping the Ideal Student Learning Experience: Faculty at the Heart of Student Success",
+      "Presenters": [
+        {
+          "Name": "Kristin Cartwright",
+          "Position": "Associate Professor, Mathematics",
+          "Department": "Faculty Teaching and Learning Center"
+        },
+        {
+          "Name": "Alia Criddle",
+          "Position": "Director of Faculty Development",
+          "Department": "Faculty Teaching and Learning Center"
+        }
+      ],
+      "Description": "This breakout session explores what an ideal classroom looks like for SLCC students and how faculty-centered strategies support student success. Participants will brainstorm practical pedagogical practices, structural needs, and actionable ideas to build meaningful, engaging, and equitable learning experiences.",
+      "VisionMatrixTag": ["Complete"]
+    },
+    {
+      "Title": "Growing Together: Building Careers and Teams",
+      "Presenters": [
+        {
+          "Name": "Cecile Delozier",
+          "Position": "Interim Dean",
+          "Department": "Salt Lake Tech"
+        },
+        {
+          "Name": "Kathy Shipley",
+          "Position": "Manager",
+          "Department": "Facilities and Key Office"
+        },
+        {
+          "Name": "Richard Diaz",
+          "Position": "Senior Director",
+          "Department": "Orientation and Student Success"
+        },
+        {
+          "Name": "Gavin Harper",
+          "Position": "Assistant Provost",
+          "Department": "eLearning/Digital Initiatives"
+        }
+      ],
+      "Description": "This session provides a collaborative space to explore strategies for career development and personal growth. Participants will discuss career conversations, growth opportunities, feedback practices, and self-advocacy while learning how to support engagement and development for themselves and their teams.",
+      "LearningObjectives": [
+        "Empower individuals to share their personal vision for the future",
+        "Enhance engagement by fostering a safe and healthy workplace",
+        "Encourage ongoing personal and professional growth"
+      ],
+      "VisionMatrixTag": ["Engage", "Complete", "Thrive"]
+    },
+    {
+      "Title": "Cultivating Emotional Strength in Times of Transition",
+      "Presenters": [
+        {
+          "Name": "Christina McWhinnie",
+          "Position": "Employee Wellness Manager",
+          "Department": "Employee Wellness"
+        },
+        {
+          "Name": "Employee Wellness Team",
+          "Position": "Team",
+          "Department": "Employee Wellness"
+        }
+      ],
+      "Description": "This interactive session focuses on fostering adaptability and promoting growth during times of change. Participants will learn evidence-based strategies to build emotional resilience, reframe uncertainty, and integrate self-care practices that support long-term well-being.",
+      "VisionMatrixTag": ["Engage", "Complete", "Thrive"]
+    },
+    {
+      "Title": "From Data to Decisions - Advancing SLCC’s Institutional Analytics through the DSA Roadmap and Data Governance Framework",
+      "Presenters": [
+        {
+          "Name": "Leonel Nieto",
+          "Position": "Associate Vice President",
+          "Department": "Institutional Effectiveness"
+        }
+      ],
+      "Description": "This presentation outlines SLCC’s comprehensive data strategy for unifying analytics, governance, and decision-making. It highlights the Data Science and Analytics Roadmap and the evolution of the Data Governance Framework to support transparent reporting, shared ownership, and data-informed progress.",
+      "VisionMatrixTag": ["Engage", "Complete", "Thrive"]
+    },
+    {
+      "Title": "The Engagement Advantage - Cultivating Students and Communities that Thrive",
+      "Presenters": [
+        {
+          "Name": "Lucy Smith",
+          "Position": "Director",
+          "Department": "Engaged Learning"
+        },
+        {
+          "Name": "Jen Seltzer Stitt",
+          "Position": "Director",
+          "Department": "Community Relations"
+        },
+        {
+          "Name": "Anita Lui",
+          "Position": "Assistant Director",
+          "Department": "Community Engagement"
+        }
+      ],
+      "Description": "This hands-on session explores how community-engaged learning and partnerships can help students, the college, and communities thrive. Participants will examine strategies, tools, and real-world examples that support connection, belonging, and collective success.",
+      "VisionMatrixTag": ["Thrive"]
+    },
+    {
+      "Title": "Designing Programs for Student Success - From Structure to Scheduling",
+      "Presenters": [
+        {
+          "Name": "Rachel Lewis",
+          "Position": "Associate Provost",
+          "Department": "Academic Systems"
+        },
+        {
+          "Name": "David Brower",
+          "Position": "Senior Director",
+          "Department": "Curriculum and Academic Scheduling"
+        }
+      ],
+      "Description": "This session highlights program design and scheduling practices that prioritize student completion and success. Participants will learn how clear requirements, intentional sequencing, and aligned scheduling reduce barriers and support timely program completion.",
+      "VisionMatrixTag": ["Complete"]
+    },
+    {
+      "Title": "Empowering the Change You Want: Authentically Confronting Problems with Incremental Change in Mind",
+      "Presenters": [
+        {
+          "Name": "Christina Holm",
+          "Position": "Assistant Director",
+          "Department": "Library Academic Services"
+        },
+        {
+          "Name": "Shawn Adrian",
+          "Position": "Coordinator",
+          "Department": "Catalog & Degree Audit"
+        }
+      ],
+      "Description": "This session demonstrates how a large strategic goal can be translated into a low-lift, action-based solution. Participants will map a friction point in their work and outline a realistic next step using guided reflection and optional peer sharing.",
+      "VisionMatrixTag": ["Complete"]
+    },
+    {
+      "Title": "Strategic Doing at SLCC - Turning Vision into Collaborative Action",
+      "Presenters": [
+        {
+          "Name": "Brandi Mair",
+          "Position": "Chief of Staff",
+          "Department": "President’s Office"
+        },
+        {
+          "Name": "Natalie Spendlove",
+          "Position": "Program Manager",
+          "Department": "Operations, Engagement, Events & Analytics"
+        }
+      ],
+      "Description": "Grounded in the book Strategic Doing, this session focuses on applying agile leadership skills to address complex challenges through collaboration, trust, and incremental progress aligned with SLCC’s shared vision.",
+      "VisionMatrixTag": ["Engage", "Complete", "Thrive"]
+    },
+    {
+      "Title": "The RACI Advantage- Project Management for Every Employee",
+      "Presenters": [
+        {
+          "Name": "Anjali Pai",
+          "Position": "Director",
+          "Department": "Staff Development & Employee Experience"
+        },
+        {
+          "Name": "Gabe Byars",
+          "Position": "Faculty Senate President",
+          "Department": "Faculty Senate"
+        }
+      ],
+      "Description": "This interactive session introduces the RACI framework and demonstrates how it improves project clarity and collaboration. Participants will leave with a practical tool to apply immediately.",
+      "VisionMatrixTag": ["Engage", "Complete", "Thrive"]
+    },
+    {
+      "Title": "Operationalizing our Mission: From Purpose to Practice",
+      "Presenters": [
+        {
+          "Name": "Josh Sylvester",
+          "Position": "Associate Vice President",
+          "Department": "Facilities Services"
+        },
+        {
+          "Name": "Alonso Reyna Rivarola",
+          "Position": "Director",
+          "Department": "PACE Programs"
+        }
+      ],
+      "Description": "This session explores how individual roles connect to SLCC’s mission through purpose-driven work, operational planning, and practical tools that keep student success outcomes at the center.",
+      "VisionMatrixTag": ["Engage", "Complete", "Thrive"]
+    }
+  ]
+}
